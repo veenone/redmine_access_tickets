@@ -1,4 +1,4 @@
-class CreateIResugroups < ActiveRecord::Migration
+class CreateIResugroups < ActiveRecord::[5.2]
   def up
     create_table :i_resugroups do |t|
       t.belongs_to :group, index: true

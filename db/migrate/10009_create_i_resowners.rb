@@ -1,4 +1,4 @@
-class CreateIResowners < ActiveRecord::Migration
+class CreateIResowners < ActiveRecord::Migration[5.2]
   def up
     create_table :i_resowners do |t|
       t.belongs_to :user, index: true

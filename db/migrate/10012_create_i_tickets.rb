@@ -1,4 +1,4 @@
-class CreateITickets < ActiveRecord::Migration
+class CreateITickets < ActiveRecord::Migration[5.2]
   def up
     create_table :i_tickets do |t|
       t.belongs_to :issue, index: true, :null => true

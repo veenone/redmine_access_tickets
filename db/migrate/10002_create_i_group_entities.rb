@@ -1,4 +1,4 @@
-class CreateIGroupEntities < ActiveRecord::Migration
+class CreateIGroupEntities < ActiveRecord::[5.2]
   def up
     create_table :i_group_entities do |t|
       t.belongs_to :i_resource, index: true, :null => true

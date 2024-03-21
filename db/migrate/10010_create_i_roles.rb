@@ -1,4 +1,4 @@
-class CreateIRoles < ActiveRecord::Migration
+class CreateIRoles < ActiveRecord::Migration[5.2]
   def up
     create_table :i_roles do |t|
       t.belongs_to :i_resource, index: true

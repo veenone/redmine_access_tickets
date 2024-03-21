@@ -1,5 +1,5 @@
 
-class CreateITickentities < ActiveRecord::Migration
+class CreateITickentities < ActiveRecord::Migration[5.2]
   def up
     create_table :i_tickentities do |t|
       t.belongs_to :i_entity, index: true

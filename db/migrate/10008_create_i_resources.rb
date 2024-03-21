@@ -1,4 +1,4 @@
-class CreateIResources < ActiveRecord::Migration
+class CreateIResources < ActiveRecord::Migration[5.2]
   def up
     create_table :i_resources do |t|
       t.string :name
