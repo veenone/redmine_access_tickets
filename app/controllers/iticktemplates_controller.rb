@@ -20,6 +20,8 @@
 class IticktemplatesController < ApplicationController
 
   def show_template_versions
+    private_params = params.require(:group_template).permit(:deleted, :i_ticktemplate_id, :group_id)
+    private_params1 = params.require(:iticktemplate).permit(:name, :updated_by_id, :deleted, :app_issue_id)
     user_id = User.current.id
     if params[:group_id].present? && params[:template_id].present?
       is_lider_for_group = IGrouplider.is_lider_for_group(params[:group_id], user_id)
@@ -39,6 +41,8 @@ class IticktemplatesController < ApplicationController
 
 
   def show_group_templates
+    private_params = params.require(:group_template).permit(:deleted, :i_ticktemplate_id, :group_id)
+    private_params1 = params.require(:iticktemplate).permit(:name, :updated_by_id, :deleted, :app_issue_id)
     if params[:group_id].present?
       is_lider_for_group = IGrouplider.is_lider_for_group(params[:group_id], User.current.id)
       if is_lider_for_group || params[:group_id].to_i.in?(User.current.groups.map(&:id).uniq) || ITicket.check_security_officer(User.current)
@@ -74,6 +78,8 @@ class IticktemplatesController < ApplicationController
   end
 
   def show_template
+    private_params = params.require(:group_template).permit(:deleted, :i_ticktemplate_id, :group_id)
+    private_params1 = params.require(:iticktemplate).permit(:name, :updated_by_id, :deleted, :app_issue_id)
     if params[:group_id].present? && params[:template_id].present?
       if IGrouptemplate.where(:group_id => params[:group_id], :i_ticktemplate_id => params[:template_id]).count > 0
         if params[:t_uid].present?
@@ -100,6 +106,8 @@ class IticktemplatesController < ApplicationController
 
 
   def add_template
+    private_params = params.require(:group_template).permit(:deleted, :i_ticktemplate_id, :group_id)
+    private_params1 = params.require(:iticktemplate).permit(:name, :updated_by_id, :deleted, :app_issue_id)
     if params[:group_id].present? && params[:name].present?
       user = User.current
       group_id = params[:group_id]
@@ -119,6 +127,8 @@ class IticktemplatesController < ApplicationController
   end
 
   def edit_template
+    private_params = params.require(:group_template).permit(:deleted, :i_ticktemplate_id, :group_id)
+    private_params1 = params.require(:iticktemplate).permit(:name, :updated_by_id, :deleted, :app_issue_id)
     if params[:group_id].present? && params[:template_id].present? && params[:name].present? 
       user = User.current
       group_id = params[:group_id]
@@ -138,6 +148,8 @@ class IticktemplatesController < ApplicationController
   end
 
   def save_template
+    private_params = params.require(:group_template).permit(:deleted, :i_ticktemplate_id, :group_id)
+    private_params1 = params.require(:iticktemplate).permit(:name, :updated_by_id, :deleted, :app_issue_id)
     if params[:group_id].present? && params[:template_id].present? && params[:i_tickets].present?
       group_id = params[:group_id]
       i_ticktemplate_id = params[:template_id]
@@ -191,6 +203,8 @@ class IticktemplatesController < ApplicationController
   end
 
   def remove_template
+    private_params = params.require(:group_template).permit(:deleted, :i_ticktemplate_id, :group_id)
+    private_params1 = params.require(:iticktemplate).permit(:name, :updated_by_id, :deleted, :app_issue_id)
     if params[:group_id].present? && params[:template_id].present?
       group_id = params[:group_id]
       i_ticktemplate_id = params[:template_id]
@@ -216,6 +230,8 @@ class IticktemplatesController < ApplicationController
 
 
   def set_issue_template
+    private_params = params.require(:group_template).permit(:deleted, :i_ticktemplate_id, :group_id)
+    private_params1 = params.require(:iticktemplate).permit(:name, :updated_by_id, :deleted, :app_issue_id)
     if params[:issue_id].present? && params[:group_id].present? && params[:template_id].present?
       issue_id = params[:issue_id]
       group_id = params[:group_id]

@@ -22,6 +22,7 @@
 class IticketsController < ApplicationController
 
   def alter_template_uid()
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if ITicket.check_security_officer(User.current) 
       template_ids = ITicktemplate.active.map(&:id)
       template_ids.each do |id|
@@ -35,6 +36,7 @@ class IticketsController < ApplicationController
   end
 
   def alter_f_date()
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if ITicket.check_security_officer(User.current) 
       ITicket.where('i_tickets.issue_id IS NOT NULL').each do |ticket|
         ticket[:f_date] = ticket[:e_date]
@@ -47,6 +49,7 @@ class IticketsController < ApplicationController
   end
 
   def show_last_users
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     users_nosort = []
     first_option = {}
     first_option[:id] = ""
@@ -69,6 +72,7 @@ class IticketsController < ApplicationController
   end
 
   def set_tickets_user
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if params[:user_id].present? && params[:issue_id].present?
       issue_id = params[:issue_id]
       user_id = params[:user_id]
@@ -85,6 +89,7 @@ class IticketsController < ApplicationController
   end
 
   def show_at_project
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if !ISetting.active.where(:param => "at_project_id").first.nil?
       at_project = ISetting.active.where(:param => "at_project_id").first.value
     else
@@ -107,6 +112,7 @@ class IticketsController < ApplicationController
 
 
   def ticket_table_show_version
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     issue_id = params[:issue_id]
     t_uid = params[:version]
     itickets = ITicket.show_tickets_list(issue_id,t_uid)
@@ -116,6 +122,7 @@ class IticketsController < ApplicationController
   end
 
   def edit_ticket_table
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     @current_year = Time.now().strftime("%Y").to_i
     @last_year = @current_year + 10
     @issue_id = params[:issue_id]
@@ -155,6 +162,7 @@ class IticketsController < ApplicationController
   end
 
   def self.check_issue_editable(issue_id,user)
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if issue_id.nil?
       false
     else
@@ -169,6 +177,7 @@ class IticketsController < ApplicationController
   end
 
   def edit_ticket_table_save
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if IticketsController.check_issue_editable(params[:issue_id], User.current)
       issue_id = params[:issue_id]
       user_id = User.current.id
@@ -271,6 +280,7 @@ class IticketsController < ApplicationController
 
 ## migrate to model
   def self.show_last_ticket_version(issue_id)
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if !ITicket.active.where(:issue_id => issue_id).empty?
       Time::DATE_FORMATS.merge!(:localdb=>"%H:%M:%S %d.%m.%Y")
       if User.current.time_zone != nil
@@ -286,6 +296,7 @@ class IticketsController < ApplicationController
   end
 
   def verify_tickets
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if ITicket.check_security_officer(User.current)
       user_id = User.current.id
       if params[:issue_id].present?
@@ -318,6 +329,7 @@ class IticketsController < ApplicationController
   end
 
   def reject_tickets
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     if ITicket.check_security_officer(User.current)
       user_id = User.current.id
       if params[:issue_id].present?
@@ -347,6 +359,7 @@ class IticketsController < ApplicationController
   end
 
   def approve_tickets
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     issue_id = params[:issue_id]
     if params[:uid].present?
       r_uid = params[:uid]
@@ -382,6 +395,7 @@ class IticketsController < ApplicationController
   end
 
   def revoke_tickets
+    private_params = params.require(:iticket).permit(:may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at)
     issue_id = params[:issue_id]
     if params[:uid].present?
       r_uid = params[:uid]

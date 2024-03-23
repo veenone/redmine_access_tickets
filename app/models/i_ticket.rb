@@ -21,7 +21,7 @@ class ITicket < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
-  attr_accessible  :may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at
+  # attr_accessible  :may_be_granted, :may_be_revoked,:i_ticktemplate_id, :description, :t_uid, :r_uid, :f_date, :e_date, :s_date, :user_id, :i_resource_id, :i_role_id, :deleted, :issue_id, :created_at, :updated_at
 
   belongs_to :issue, :class_name => "Issue", :foreign_key => "issue_id"
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"

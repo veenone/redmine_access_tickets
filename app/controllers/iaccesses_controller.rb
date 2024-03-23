@@ -19,6 +19,10 @@
 
 class IaccessesController < ApplicationController
 
+  def accessparams
+    params.require(:iaccess).permit(:i_entity_id, :rev_issue_id,:i_ticket_id, :r_created_by_id, :granted_by_id, :granted_at, :confirmed_by_id, :confirmed_at, :revoked_by_id, :revoked_at, :deleted, :active, :deactivated_by_id, :deactivated_at, :created_at, :updated_at)
+  end
+
   def export_all_accesses
     if ITicket.check_security_officer(User.current)
       current_user_id = User.current.id
@@ -106,6 +110,14 @@ class IaccessesController < ApplicationController
       end
     end
     if ITicket.check_security_officer(User.current) && params[:user_id].present? 
+      permitted_params = params.permit(:user_id, :s_date_g, :e_date_g, :revoke_filter, :s_date_r, :e_date_r)
+      user_id = permitted_params[:user_id]
+      s_date_g = permitted_params[:s_date_g]
+      e_date_g = permitted_params[:e_date_g]
+      revoke_filter = permitted_params[:revoke_filter]
+      s_date_r = permitted_params[:s_date_r]
+      e_date_r = permitted_params[:e_date_r]
+
       accesses_list = IAccess.accesses_list(params[:user_id].to_i, nil, current_user_id)
       rev_accesses_list = IAccess.revoked_accesses_list(params[:user_id].to_i, current_user_id)
 
@@ -145,6 +157,14 @@ class IaccessesController < ApplicationController
         format.csv { send_data csv, :filename => 'accesses'+'_at_'+ Time.now().strftime("%HH-%MM-%d-%m-%Y") +'.csv' }
       end
     elsif ITicket.check_security_officer(User.current) && params[:resource_id].present?
+      permitted_params = params.permit(:resource_id, :s_date_g, :e_date_g, :revoke_filter, :s_date_r, :e_date_r)
+      user_id = permitted_params[:user_id]
+      s_date_g = permitted_params[:s_date_g]
+      e_date_g = permitted_params[:e_date_g]
+      revoke_filter = permitted_params[:revoke_filter]
+      s_date_r = permitted_params[:s_date_r]
+      e_date_r = permitted_params[:e_date_r]
+
       current_user_id = User.current.id
       accesses_list = IAccess.accesses_list_by_resource(params[:resource_id], current_user_id)
       rev_accesses_list = IAccess.revoked_accesses_list_by_resource(params[:resource_id], current_user_id)

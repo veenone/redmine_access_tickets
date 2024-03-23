@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with access_tickets.  If not, see <http://www.gnu.org/licenses/>.
 
-module Access_Tickets
+module RedmineAccessTickets
     class Hooks  < Redmine::Hook::ViewListener
 
       def controller_issues_new_before_save(context)

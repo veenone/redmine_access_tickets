@@ -1,4 +1,4 @@
-class CreateIRetimeaccesses < ActiveRecord::Migration[5.2]
+class CreateIRetimeaccesses < ActiveRecord::Migration[6.1]
   def up
     create_table :i_retimeaccesses do |t|
       t.belongs_to :i_access, index: true, :null => true

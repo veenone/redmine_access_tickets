@@ -21,7 +21,7 @@ class IRole < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
-  attr_accessible :name, :deleted, :updated_by_id, :description
+  # attr_accessible :name, :deleted, :updated_by_id, :description
   belongs_to :iresource, :class_name => "IResource", :foreign_key => "i_resource_id"
   #belongs_to :updated_by, :class_name => "User",  :foreign_key => "updated_by_id"
   #has_many :itickets

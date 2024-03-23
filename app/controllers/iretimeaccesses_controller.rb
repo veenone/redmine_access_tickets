@@ -19,8 +19,9 @@
 
 class IretimeaccessesController < ApplicationController
 
-
+  
   def save_retiming_table
+    private_params = params.require(:i_retimeaccesses).permit( :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at)
     if params[:issue_id].present? && params[:i_tickets].present?
       issue_id = params[:issue_id]
       r_user_id = params[:r_user_id]
@@ -44,6 +45,7 @@ class IretimeaccessesController < ApplicationController
   end
 
   def edit_retiming_table
+    private_params = params.require(:i_retimeaccesses).permit( :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at)
     if params[:issue_id].present? 
       @issue_id = params[:issue_id]
       @users_list = IGrouplider.available_users(User.current)
@@ -70,6 +72,7 @@ class IretimeaccessesController < ApplicationController
   end
 
   def show_retiming_accesses
+    private_params = params.require(:i_retimeaccesses).permit( :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at)
     if params[:user_id].present? && params[:issue_id].present?
       issue_id = params[:issue_id]
       current_user_id = User.current.id
@@ -86,6 +89,7 @@ class IretimeaccessesController < ApplicationController
   end
 
   def verify_retiming
+    private_params = params.require(:i_retimeaccesses).permit( :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at)
     issue_id = params[:issue_id]
     user = User.current
     if IRetimeaccess.may_be_verify_retiming(issue_id, user.id)
@@ -113,6 +117,7 @@ class IretimeaccessesController < ApplicationController
   end
 
   def reject_retiming
+    private_params = params.require(:i_retimeaccesses).permit( :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at)
     issue_id = params[:issue_id]
     user = User.current
     if IRetimeaccess.may_be_reject_verification_retiming(issue_id, user.id)
@@ -133,6 +138,7 @@ class IretimeaccessesController < ApplicationController
   end
 
   def approve_retiming
+    private_params = params.require(:i_retimeaccesses).permit( :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at)
     issue_id = params[:issue_id]
     if params[:uid].present?
       r_uid = params[:uid]
@@ -175,6 +181,7 @@ class IretimeaccessesController < ApplicationController
   end
 
   def revoke_retiming
+    private_params = params.require(:i_retimeaccesses).permit( :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at)
     issue_id = params[:issue_id]
     if params[:uid].present?
       r_uid = params[:uid]

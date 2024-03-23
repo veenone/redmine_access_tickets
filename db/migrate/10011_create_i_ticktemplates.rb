@@ -1,4 +1,4 @@
-class CreateITicktemplates < ActiveRecord::Migration[5.2]
+class CreateITicktemplates < ActiveRecord::Migration[6.1]
   def up
     create_table :i_ticktemplates do |t|
       t.string :name, :limit => 64

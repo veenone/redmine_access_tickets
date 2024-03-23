@@ -24,7 +24,7 @@ class ITicktemplate < ActiveRecord::Base
   #belongs_to :ientity, :class_name => "IEntity", :foreign_key => "i_entity_id"
   #belongs_to :iticket, :class_name => "ITicket", :foreign_key => "i_ticket_id"
   has_many :itickets, :class_name => "ITicket"
-  attr_accessible :name, :updated_by_id, :deleted, :app_issue_id
+  # attr_accessible :name, :updated_by_id, :deleted, :app_issue_id
   validates :name, length: { in: 2..64 }
   #belongs_to :owner, :class_name => "User", :foreign_key => "owner_id"
   before_create :default

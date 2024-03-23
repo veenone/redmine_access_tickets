@@ -1,4 +1,4 @@
-class CreateIResentities < ActiveRecord::Migration[5.2]
+class CreateIResentities < ActiveRecord::Migration[6.1]
   def up
     create_table :i_resentities do |t|
       t.belongs_to :i_entity, index: true

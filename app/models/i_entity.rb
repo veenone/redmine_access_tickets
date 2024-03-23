@@ -25,7 +25,7 @@ class IEntity < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
-  attr_accessible :id, :name, :description, :ipv4, :deleted, :updated_by_id
+  # attr_accessible :id, :name, :description, :ipv4, :deleted, :updated_by_id
   #belongs_to :iresource, :class_name => "IResource", :foreign_key => "i_resource_id"
   belongs_to :updated_by, :class_name => "User", :foreign_key => "updated_by_id"
   #has_many :itickets

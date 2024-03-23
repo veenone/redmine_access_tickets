@@ -21,7 +21,7 @@ class IRetimeaccess < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
-  attr_accessible :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at
+  # attr_accessible :i_access_id, :r_uid, :old_e_date, :r_date, :retime_issue_id, :retimed_to, :deleted, :active, :r_verifier_by_id, :r_verifier_at, :r_approver_by_id, :r_approver_at, :created_by_id, :created_at, :updated_at
   belongs_to :iaccess, :class_name => "IAccess", :foreign_key => "i_access_id"
   #belongs_to :iticket, :class_name => "ITicket", :foreign_key => "i_ticket_id"
   belongs_to :r_verifier, :class_name => "User", :foreign_key => "verified_by_id"

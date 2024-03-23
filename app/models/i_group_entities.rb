@@ -21,7 +21,7 @@ class IGroupEntities < ActiveRecord::Base
 
   belongs_to :entity, :class_name => "IEntity", :foreign_key => "entity_id"
   belongs_to :iresource, :class_name => "IResource", :foreign_key => "i_resource_id"
-  attr_accessible :name
+  # attr_accessible :name
   validates :name, length: { in: 2..64 }
   #belongs_to :owner, :class_name => "User", :foreign_key => "owner_id"
 end

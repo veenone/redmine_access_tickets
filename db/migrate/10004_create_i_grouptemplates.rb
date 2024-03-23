@@ -1,4 +1,4 @@
-class CreateIGrouptemplates < ActiveRecord::Migration[5.2]
+class CreateIGrouptemplates < ActiveRecord::Migration[6.1]
   def up
     create_table :i_grouptemplates do |t|
       t.belongs_to :i_ticktemplate, index: true

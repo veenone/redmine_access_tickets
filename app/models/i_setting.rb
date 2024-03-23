@@ -21,7 +21,7 @@ class ISetting < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
-  attr_accessible :param, :value, :updated_at, :updated_by_id, :deleted
+  # attr_accessible :param, :value, :updated_at, :updated_by_id, :deleted
 
   def self.check_config
     if ISetting.active.all.count == ISetting.values_map.count && Project.where(:id => ISetting.active.where(:param => "at_project_id").first.value).count > 0

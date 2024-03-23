@@ -1,4 +1,4 @@
-class CreateIEntities < ActiveRecord::Migration[5.2]
+class CreateIEntities < ActiveRecord::Migration[6.1]
   def up
     create_table :i_entities do |t|
       t.string :name, :limit => 64

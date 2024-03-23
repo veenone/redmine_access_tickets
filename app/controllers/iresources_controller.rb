@@ -19,7 +19,8 @@
 
 class IresourcesController < ApplicationController
 
-  def set_groups_availability
+  def set_groups_availability	
+	
     if ( ITicket.check_security_officer(User.current) && params[:iresugroups].present? && params[:resource_id].present? )
       IResugroup.where('i_resource_id = ? and group_id not in (?)', params[:resource_id], params[:iresugroups]).destroy_all
       iresource = IResource.find(params[:resource_id])
@@ -51,7 +52,8 @@ class IresourcesController < ApplicationController
 
 
   def groups_availability
-    if ITicket.check_security_officer(User.current) && params[:resource_id].present?
+	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
+	if ITicket.check_security_officer(User.current) && params[:resource_id].present?
       groups = []
       Group.where(:id => IGrouplider.group_ids()).each do |obj|
         group = {}
@@ -70,6 +72,7 @@ class IresourcesController < ApplicationController
 
 
 	def show_resource
+		private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
 		if params[:resource_id].present? #&& 
       if IResource.available_for_user(params[:resource_id], User.current.id)
   			@resource_editable = false
@@ -92,6 +95,7 @@ class IresourcesController < ApplicationController
 	end
 
 	def edit_resource
+		private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
 		if params[:resource_id].present? && ( ITicket.check_security_officer(User.current) || IResgranter.is_granter_for_resource(User.current.id,params[:resource_id]) || IResowner.is_owner_for_resource(User.current.id,params[:resource_id]) )
 			@entities_editable = true
 			if ITicket.check_security_officer(User.current)
@@ -135,6 +139,7 @@ class IresourcesController < ApplicationController
 
 
   def set_has_ip
+	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
     if ( ITicket.check_security_officer(User.current) && params[:has_ip].present? && params[:res_id].present? )
       iresource = IResource.active.where(:id => params[:res_id]).first
       iresource[:has_ip] = params[:has_ip]
@@ -153,6 +158,7 @@ class IresourcesController < ApplicationController
   end
 
   def set_has_entities
+	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
     if ( ITicket.check_security_officer(User.current) && params[:has_entities].present? && params[:res_id].present? )
       iresource = IResource.active.where(:id => params[:res_id]).first
       iresource[:has_entities] = params[:has_entities]
@@ -172,6 +178,7 @@ class IresourcesController < ApplicationController
 
 
   def set_owners
+	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
 		if ITicket.check_security_officer(User.current) && params[:iresowners].present? && params[:res_id].present? 
 			IResowner.where('i_resource_id = ? and user_id not in (?)', params[:res_id], params[:iresowners]).destroy_all
 			iresource = IResource.active.where(:id => params[:res_id]).first
@@ -203,6 +210,7 @@ class IresourcesController < ApplicationController
   end
 
   def set_granters
+	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
 		if ITicket.check_security_officer(User.current) && params[:iresgranters].present? && params[:res_id].present? 
 			IResgranter.where('i_resource_id = ? and user_id not in (?)', params[:res_id], params[:iresgranters]).destroy_all
 			#iresource = IresourcesController.find(params[:res_id])
@@ -271,6 +279,7 @@ class IresourcesController < ApplicationController
 
   #def ir_add
   def add_resource
+	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
 		if ITicket.check_security_officer(User.current)
 	    iresource = IResource.new(:name => params[:name] )
 	    iresource[:updated_by_id] = User.current.id

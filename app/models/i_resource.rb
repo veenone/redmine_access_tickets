@@ -21,7 +21,7 @@ class IResource < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
-  attr_accessible :name, :has_ip, :has_entities, :deleted, :description, :updated_by_id
+  # attr_accessible :name, :has_ip, :has_entities, :deleted, :description, :updated_by_id
   #belongs_to :owner, :class_name => "User", :foreign_key => "owner_id"
   has_many :iresowners, :class_name => "IResowner"
   has_many :owners, through: :iresowners

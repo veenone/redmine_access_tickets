@@ -21,7 +21,7 @@ class IGrouptemplate < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
-  attr_accessible :deleted, :i_ticktemplate_id, :group_id
+  # attr_accessible :deleted, :i_ticktemplate_id, :group_id
 
   belongs_to :iticktemplate, :class_name => "ITicktemplate", :foreign_key => "i_ticktemplate_id"
   belongs_to :group, :class_name => "Group", :foreign_key => "group_id"

@@ -1,4 +1,4 @@
-class CreateISettings < ActiveRecord::Migration[5.2]
+class CreateISettings < ActiveRecord::Migration[6.1]
   def up
     create_table :i_settings do |t|
       t.string :param, :limit => 256

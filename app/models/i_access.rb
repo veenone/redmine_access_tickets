@@ -21,7 +21,7 @@ class IAccess < ActiveRecord::Base
   scope :deleted, -> { where(deleted: true) }
   scope :active, -> { where(deleted: false) }
 
-  attr_accessible :i_entity_id, :rev_issue_id,:i_ticket_id, :r_created_by_id, :granted_by_id, :granted_at, :confirmed_by_id, :confirmed_at, :revoked_by_id, :revoked_at, :deleted, :active, :deactivated_by_id, :deactivated_at, :created_at, :updated_at
+  # attr_accessible :i_entity_id, :rev_issue_id,:i_ticket_id, :r_created_by_id, :granted_by_id, :granted_at, :confirmed_by_id, :confirmed_at, :revoked_by_id, :revoked_at, :deleted, :active, :deactivated_by_id, :deactivated_at, :created_at, :updated_at
 
   belongs_to :iticket, :class_name => "ITicket", :foreign_key => "i_ticket_id"
   belongs_to :granter, :class_name => "User", :foreign_key => "granted_by_id"

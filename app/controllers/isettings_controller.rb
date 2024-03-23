@@ -21,6 +21,7 @@ class IsettingsController < ApplicationController
 
 
   def reset_config
+    private_params = params.require(:irole).permit(:param, :value, :updated_at, :updated_by_id, :deleted)
     if User.current.admin?
       ISetting.active.update_all(:deleted =>  1)
       redirect_to Redmine::Utils::relative_url_root + "/settings/plugin/access_tickets", :status => 302 #root_url
@@ -30,6 +31,7 @@ class IsettingsController < ApplicationController
   end
 
   def set_base_config
+    private_params = params.require(:irole).permit(:param, :value, :updated_at, :updated_by_id, :deleted)
     if User.current.admin? && params[:parameters].present? && !ISetting.check_config()
       rawData = JSON.parse(params[:parameters])
       errors = {}
@@ -50,6 +52,7 @@ class IsettingsController < ApplicationController
 
 
   def show_group_details
+    private_params = params.require(:irole).permit(:param, :value, :updated_at, :updated_by_id, :deleted)
     if ITicket.check_security_officer(User.current) && params[:group_id].present?
       #users = User.active.select([:id,:login])
       users = [] 
@@ -71,6 +74,7 @@ class IsettingsController < ApplicationController
   end
 
   def set_group_liders
+    private_params = params.require(:irole).permit(:param, :value, :updated_at, :updated_by_id, :deleted)
     if ( ITicket.check_security_officer(User.current) && params[:group_id].present? )
 
       IGrouplider.where(:group_id => params[:group_id]).destroy_all
@@ -89,6 +93,7 @@ class IsettingsController < ApplicationController
   end
 
   def set_settings_value
+    private_params = params.require(:irole).permit(:param, :value, :updated_at, :updated_by_id, :deleted)
     if ITicket.check_security_officer(User.current)
       params.each do |key,value|
         if key.in?(ISetting.values_map()) 
@@ -101,6 +106,7 @@ class IsettingsController < ApplicationController
   end
 
   def self.save_settings_value(key,value)
+    private_params = params.require(:irole).permit(:param, :value, :updated_at, :updated_by_id, :deleted)
     if ISetting.active.where(:param => key).nil?
       new_settings = ISetting.new
       new_settings[:key] = key
