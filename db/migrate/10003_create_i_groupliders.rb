@@ -1,4 +1,4 @@
-class CreateIGroupliders < ActiveRecord::[5.2]
+class CreateIGroupliders < ActiveRecord::Migration[5.2]
   def up
     create_table :i_groupliders do |t|
       t.belongs_to :user, index: true

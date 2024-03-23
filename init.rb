@@ -17,11 +17,11 @@
 # You should have received a copy of the GNU General Public License
 # along with access_tickets.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'access_tickets/hooks'
+require_dependency File.expand_path('../lib/redmine_access_tickets/hooks',__FILE__)
 
 ACCESS_TICKETS_VERSION_TYPE = "2.0.1"
 
-Redmine::Plugin.register :access_tickets do
+Redmine::Plugin.register :redmine_access_tickets do
   name 'Access tickets' 
   author 'Maltsev Ilya' 
   description 'Access management plugin for Redmine'
