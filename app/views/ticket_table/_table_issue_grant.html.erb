@@ -90,10 +90,10 @@
 </fieldset>
 
 </div>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/access_tickets.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.dataTables.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.chosen.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.validate.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/access_tickets.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.dataTables.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.chosen.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.validate.js"></script>
 
 <script type="text/javascript">
   $('#wrapper').append('<div id="exist_accesses_box"></div>');
@@ -302,7 +302,7 @@ if ($('#show_ticket').DataTable().data().length < 11 ) {
 
   $("#at_iticket_edit").click(function(e) { 
     $(e).hide();
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_ticket_table", { issue_id : <%= @issue.id.to_s %> }, "json");  
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_ticket_table", { issue_id : <%= @issue.id.to_s %> }, "json");  
     $(e).show();
   });
 
@@ -425,7 +425,7 @@ if ($('#show_ticket').DataTable().data().length < 11 ) {
       if ( $("select#users_list option").filter(":selected").val() == '' ) {
         alert('<%= l(:at_select_employee) %>');
       } else {
-        $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/grant_single_access", { issue_id : <%= @issue.id.to_s %>, uid : e.id }, function( data ) {
+        $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/grant_single_access", { issue_id : <%= @issue.id.to_s %>, uid : e.id }, function( data ) {
           var current_page = $('#show_ticket').DataTable().page();
           $('#show_ticket').DataTable().clear().draw();
           update_datatable(data);
@@ -434,7 +434,7 @@ if ($('#show_ticket').DataTable().data().length < 11 ) {
         },"json");  
       }
     <% else %>
-      $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/grant_single_access", { issue_id : <%= @issue.id.to_s %>, uid : e.id }, function( data ) {
+      $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/grant_single_access", { issue_id : <%= @issue.id.to_s %>, uid : e.id }, function( data ) {
         var current_page = $('#show_ticket').DataTable().page();
         $('#show_ticket').DataTable().clear().draw();
         update_datatable(data);
@@ -446,7 +446,7 @@ if ($('#show_ticket').DataTable().data().length < 11 ) {
   };
 
   function revoke_single_grant(e) {  $(e).hide();
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/revoke_single_grant", { issue_id : <%= @issue.id.to_s %>, uid : e.id }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/revoke_single_grant", { issue_id : <%= @issue.id.to_s %>, uid : e.id }, function( data ) {
     var current_page = $('#show_ticket').DataTable().page();
     $('#show_ticket').DataTable().clear().draw(); 
     update_datatable(data); 
@@ -460,7 +460,7 @@ function set_tickets_user(obj){
     alert('<%= l(:at_select_employee) %>');
   } else {
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_ticket_table/set_tickets_user?issue_id=<%= @issue.id.to_s %>&user_id="+$("select#users_list").val(),"_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_ticket_table/set_tickets_user?issue_id=<%= @issue.id.to_s %>&user_id="+$("select#users_list").val(),"_self");
   }
 
 }
@@ -555,7 +555,7 @@ function set_tickets_user(obj){
     if ($('select#users_list').prop('disabled')){
       alert('<%= l(:at_need_to_revoke_access) %>');
     } else {
-      $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_last_users", { issue_id : <%= @issue.id.to_s %> }, function( data ) {
+      $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_last_users", { issue_id : <%= @issue.id.to_s %> }, function( data ) {
         $('#users_list').empty();
         $.each(data,function(){
           $('#users_list').append('<option value=' + this["id"] + '>' + this["name"] + '</option>');
@@ -568,29 +568,29 @@ function set_tickets_user(obj){
   $("#at_iticket_verify").click(function(e) {  
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/verify_tickets?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/verify_tickets?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
   $("#at_iticket_reject").click(function(e) { 
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/reject_tickets?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/reject_tickets?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
   $("#at_iticket_approve").click(function(e) { 
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/approve_tickets?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/approve_tickets?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
   $("#at_iticket_revoke").click(function(e) { 
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/revoke_tickets?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/revoke_tickets?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
   function show_resource(obj) { 
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
   }
 
   $("#at_grant_access").click(function(e) { 
@@ -600,30 +600,30 @@ function set_tickets_user(obj){
         alert('<%= l(:at_select_employee) %>');
       } else {
         $('#ajax-indicator').show();
-        window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/grant_access?issue_id=<%= @issue.id.to_s %>","_self");
+        window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/grant_access?issue_id=<%= @issue.id.to_s %>","_self");
       }
     <% else %>
       $('#ajax-indicator').show();
-      window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/grant_access?issue_id=<%= @issue.id.to_s %>","_self");
+      window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/grant_access?issue_id=<%= @issue.id.to_s %>","_self");
     <% end %>
   });
 
   $("#at_revoke_grant").click(function(e) { 
       $(this).prop( "disabled", true );
       $('#ajax-indicator').show();
-      window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/revoke_grant?issue_id=<%= @issue.id.to_s %>","_self");
+      window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/revoke_grant?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
   $("#at_confirm_access").click(function(e) { 
       $(this).prop( "disabled", true );
       $('#ajax-indicator').show();
-      window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/confirm_access?issue_id=<%= @issue.id.to_s %>","_self");
+      window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/confirm_access?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
   $("#at_revoke_confirmation").click(function(e) { 
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/revoke_confirmation?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/revoke_confirmation?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
 

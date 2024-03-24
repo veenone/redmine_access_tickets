@@ -1,6 +1,6 @@
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.dataTables.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.chosen.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.validate.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.dataTables.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.chosen.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.validate.js"></script>
 
 
 <div id="" class="box">
@@ -125,7 +125,7 @@ function expand(obj) {
 }
 
 function remove_resource(res_id){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/remove_resource", { resource_id : res_id }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/remove_resource", { resource_id : res_id }, function( data ) {
     if (data.status == 1) {
       update_resources_list(data);
     }
@@ -252,16 +252,16 @@ $('#resources_list').DataTable({
   });
 
   function show_role_description(obj) { 
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_role_description", { role_id: $(obj).attr('id') }, "json");  
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_role_description", { role_id: $(obj).attr('id') }, "json");  
   }
 
   function show_resource(obj) { 
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
   }
 
 
   function edit_resource(obj){
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource", { resource_id: $(obj).attr('id') }, "json");
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource", { resource_id: $(obj).attr('id') }, "json");
 
   }
 
@@ -412,7 +412,7 @@ $('#resources_list').removeAttr('style');
 $("#add_res_button").click(function(e) {
   var result = validate_name_len($("#resource_name").val(), 64); 
   if ( result == true ) {
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/add_resource", { name : $("#resource_name").val() }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/add_resource", { name : $("#resource_name").val() }, function( data ) {
       $("#resource_name").val('');
       update_resources_list(data);
     }, "json");

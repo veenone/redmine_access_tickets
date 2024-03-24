@@ -113,18 +113,19 @@ class IentitiesController < ApplicationController
     if ( ( ITicket.check_security_officer(User.current) || IResgranter.is_granter_for_resource(User.current.id,params[:res_id]) || IResowner.is_owner_for_resource(User.current.id,params[:res_id]) ) && params[:name].present?  )
       iresource = IResource.where(:id => params[:res_id]).first
       if iresource.has_entities
-        # ientity = IEntity.new(:name => params[:name], :description => params[:description], :updated_by_id => User.current.id)
-        ientity = IEntity.new(entityparams)
-        ientity.updated_by_id = User.current.id
-        ientity.ipv4 ||= '127.0.0.1' unless iresource&.has_ip
-
-        if ientity.
-          iresource.iresentities.create(i_entity_id: ientity.id)
-          ies = iresource.ientities.active.select(['i_entities.id',:ipv4,:name,:description])
-          render json: { status: 1, ientities: ies }
+        ientity = IEntity.new(:name => params[:name], :description => params[:description], :updated_by_id => User.current.id)
+        if params[:ipv4].present? && iresource.has_ip
+          ientity.ipv4 = params[:ipv4]
         else
-          render json: { status: 0, errors: ientity.errors.full_messages }
-
+          ientity.ipv4 = '127.0.0.1'
+        end
+        ientity.updated_by_id = User.current.id
+        ientity.save
+        iresentity = iresource.iresentities.new(:i_entity_id => ientity.id)
+        iresentity.save
+        ies = iresource.ientities.active.select(['i_entities.id',:ipv4,:name,:description])
+        respond_to do |format|
+          format.json { render :json => { :status => 1, :ientities => ies } }
         end
       else
           head :forbidden
@@ -133,6 +134,7 @@ class IentitiesController < ApplicationController
         head :forbidden
     end
   end
+
 
   def save_entity
     if ( ( ITicket.check_security_officer(User.current) || IResgranter.is_granter_for_resource(User.current.id,params[:res_id]) || IResowner.is_owner_for_resource(User.current.id,params[:res_id])) && params[:ie_id].present? )

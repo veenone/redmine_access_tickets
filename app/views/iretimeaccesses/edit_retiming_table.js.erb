@@ -74,7 +74,7 @@ $('#msgBox').dialog({
           access["r_date"] = $(this).find('.r_date').val();
           sendData.push(access);
         });
-        $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_retiming_table/save", { issue_id: <%=j @issue_id %>, i_tickets: JSON.stringify(sendData) }, function( data ) {
+        $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_retiming_table/save", { issue_id: <%=j @issue_id %>, i_tickets: JSON.stringify(sendData) }, function( data ) {
           $( "#ajax-modal" ).before($('#ajax-indicator').clone());
           location.reload();
         }, "json");
@@ -329,7 +329,7 @@ $('#edit_ticket_filter label input[type=search]').hide();
 <% end %>*/
 
 function show_retiming_accesses(obj) {
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_retiming_accesses", { issue_id: <%=j @issue_id %>, user_id: $(obj).val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_retiming_accesses", { issue_id: <%=j @issue_id %>, user_id: $(obj).val() }, function( data ) {
     if (data[0].length > 0) {
       update_tickets_table(data[0]);
     }

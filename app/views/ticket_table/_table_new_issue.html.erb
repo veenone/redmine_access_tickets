@@ -2,9 +2,9 @@
 
 <% if @project.id == ISetting.active.where(:param => "at_project_id").first.value.to_i %>
 
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.dataTables.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.chosen.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.validate.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.dataTables.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.chosen.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.validate.js"></script>
 
 
 <script type="text/javascript">
@@ -47,9 +47,9 @@ $(document.body).on('click', 'button.icon-del', function() {
 </script>
 
 
-<link href="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/stylesheets/jquery.dataTables.css" media="screen" rel="stylesheet" type="text/css" />
-<link href="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/stylesheets/jquery.dataTables_themeroller.css" media="screen" rel="stylesheet" type="text/css" />
-<link href="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/stylesheets/selectboxes.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/stylesheets/jquery.dataTables.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/stylesheets/jquery.dataTables_themeroller.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/stylesheets/selectboxes.css" media="screen" rel="stylesheet" type="text/css" />
 
 <% end %>
 

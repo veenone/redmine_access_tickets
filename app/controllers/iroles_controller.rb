@@ -20,7 +20,7 @@
 class IrolesController < ApplicationController
   
   def show_role_description
-    private_params = params.require(:irole).permit(:name, :deleted, :updated_by_id, :description)
+    # private_params = params.require(:irole).permit(:name, :deleted, :updated_by_id, :description)
     if params[:role_id].present?
       @irole = IRole.find(params[:role_id])
       iresource = @irole.iresource
@@ -39,7 +39,7 @@ class IrolesController < ApplicationController
 
 
   def show_role
-    private_params = params.require(:irole).permit(  :name, :deleted, :updated_by_id, :description)
+    # private_params = params.require(:irole).permit(  :name, :deleted, :updated_by_id, :description)
     if ITicket.check_security_officer(User.current) && params[:role_id].present?
       irole = IRole.where(:id => params[:role_id]).select([:name,:description]).first
       resource_name = IRole.find(params[:role_id]).iresource[:name]
@@ -53,7 +53,7 @@ class IrolesController < ApplicationController
 
 
   def add_role
-    private_params = params.require(:irole).permit(  :name, :deleted, :updated_by_id, :description)
+    # private_params = params.require(:irole).permit(  :name, :deleted, :updated_by_id, :description)
     if ITicket.check_security_officer(User.current) && params[:res_id].present? && params[:name].present? 
 	    iresource = IResource.where(:id => params[:res_id]).first
 	    irole = iresource.iroles.new(:name => params[:name], :updated_by_id => User.current.id, :description => "")
@@ -71,7 +71,7 @@ class IrolesController < ApplicationController
   end
 
   def edit_role
-    private_params = params.require(:irole).permit(  :name, :deleted, :updated_by_id, :description)
+    # private_params = params.require(:irole).permit(  :name, :deleted, :updated_by_id, :description)
     if ITicket.check_security_officer(User.current) && params[:role_id].present? && params[:name].present? 
       irole = IRole.active.find(params[:role_id])
       irole.update_attributes(:name => params[:name], :description => params[:description], :updated_by_id => User.current.id)

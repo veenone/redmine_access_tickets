@@ -1,7 +1,7 @@
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.dataTables.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.chosen.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.validate.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.ui-contextmenu-1.7.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.dataTables.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.chosen.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.validate.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.ui-contextmenu-1.7.js"></script>
 
 
 <div id="" class="box">
@@ -138,12 +138,12 @@ $(document).ready( function () {
       case "expand_by_user":
         var user_id = ui.target.parent().children()[1].getElementsByTagName('span')[0].getAttribute("user-id");
         $('#ajax-indicator').show();
-        window.open("<%= Redmine::Utils::relative_url_root %>/access_tickets/expand_by_user?user_id=" + user_id,"_self");
+        window.open("<%= Redmine::Utils::relative_url_root %>/redmine_access_tickets/expand_by_user?user_id=" + user_id,"_self");
         break;
       case "expand_by_resource":
         var resource_id = ui.target.parent().children()[2].getElementsByTagName('a')[0].getAttribute("id");
         $('#ajax-indicator').show();
-        window.open("<%= Redmine::Utils::relative_url_root %>/access_tickets/expand_by_resource?resource_id=" + resource_id,"_self");
+        window.open("<%= Redmine::Utils::relative_url_root %>/redmine_access_tickets/expand_by_resource?resource_id=" + resource_id,"_self");
         break;
     }
   },
@@ -361,7 +361,7 @@ $('#exp_search_e_date').on( 'input', function () {
 } );
 
   function show_resource(obj) { 
-    $.post("<%= Redmine::Utils::relative_url_root %>/access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
+    $.post("<%= Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
   }
 
   $("#show_access_wrapper").before(' \
@@ -784,8 +784,8 @@ $('#show_expired_accesses_filter label input[type=search]').hide();
 $('#easy_servicebar').remove();
 
 <% if @is_security %>
-  $('#items_list').after('<a id="" url="/access_tickets/accesses_list/export_accesses.csv" style="color: #52AFE5 !important; line-height: 26px !important; font-size: 30px !important;cursor: pointer;float:right; margin-left: 5px" class="icon-import" title="<%=j l(:at_export_selected_csv) %>" onclick="export_accesses(this);"></a>');
-  $('#employee_management').append('<a id="" url="/access_tickets/accesses_list/export_all_accesses.csv" style="color: #4ebf67 !important; line-height: 26px !important; font-size: 30px !important;cursor: pointer;float:right;" class="icon-import" title="<%=j l(:at_export_all_csv) %>" onclick="export_accesses(this);"></a>');
+  $('#items_list').after('<a id="" url="/redmine_access_tickets/accesses_list/export_accesses.csv" style="color: #52AFE5 !important; line-height: 26px !important; font-size: 30px !important;cursor: pointer;float:right; margin-left: 5px" class="icon-import" title="<%=j l(:at_export_selected_csv) %>" onclick="export_accesses(this);"></a>');
+  $('#employee_management').append('<a id="" url="/redmine_access_tickets/accesses_list/export_all_accesses.csv" style="color: #4ebf67 !important; line-height: 26px !important; font-size: 30px !important;cursor: pointer;float:right;" class="icon-import" title="<%=j l(:at_export_all_csv) %>" onclick="export_accesses(this);"></a>');
 <% end %>
 </script>
 

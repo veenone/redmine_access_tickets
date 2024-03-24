@@ -19,7 +19,7 @@ $.fn.dataTableExt.ofnSearch['input-string'] = function ( sData ) {
 }
 
 function export_entities() {
-  $('body').append('<form accept-charset="UTF-8" action="<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resource/export_entities.csv" id="entities_export_form"  method="get"><input name="resource_id" id="resource_id" value="'+ $("#edit_resource_name").attr("res_id") +'"><input id="submit_export_request" type="submit"></form>');
+  $('body').append('<form accept-charset="UTF-8" action="<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource/export_entities.csv" id="entities_export_form"  method="get"><input name="resource_id" id="resource_id" value="'+ $("#edit_resource_name").attr("res_id") +'"><input id="submit_export_request" type="submit"></form>');
   $('#entities_export_form').submit();
   $('#entities_export_form').remove();
 }
@@ -27,7 +27,7 @@ function export_entities() {
 function import_entities() {
   var title, warning, code;
   title = '<%= l(:at_import_csv) %>';
-  warning = '<form accept-charset="UTF-8" action="<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/import_entities.json" id="entities_import_form" enctype="multipart/form-data" method="post"><input name="authenticity_token" type="hidden" value="<%=j form_authenticity_token %>"/><input style="display:none" name="resource_id" id="resource_id" value="'+ $("#edit_resource_name").attr("res_id") +'"><input id="csvfile" name="csvfile" type="file"><input style="display:none" type="submit"></form>';
+  warning = '<form accept-charset="UTF-8" action="<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/import_entities.json" id="entities_import_form" enctype="multipart/form-data" method="post"><input name="authenticity_token" type="hidden" value="<%=j form_authenticity_token %>"/><input style="display:none" name="resource_id" id="resource_id" value="'+ $("#edit_resource_name").attr("res_id") +'"><input id="csvfile" name="csvfile" type="file"><input style="display:none" type="submit"></form>';
   code ='$("#entities_import_form").submit()';
   show_confirm_dialog(title, warning, code);
   $('.button-4').text('<%= l(:at_close) %>');
@@ -37,7 +37,7 @@ function import_entities() {
 }
 
 function show_role(obj) {
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_role", { role_id : $(obj).val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_role", { role_id : $(obj).val() }, function( data ) {
     var role_description, role_name;
     if (data.irole.i_role !== undefined) {
       role_description = data.irole.i_role.description;
@@ -53,7 +53,7 @@ function show_role(obj) {
 
 
 function remove_role() {
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/remove_role", { role_id : $("select#role_id option").filter(":selected").val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/remove_role", { role_id : $("select#role_id option").filter(":selected").val() }, function( data ) {
   $('#role_id').empty();
   $('#role_id').append('<option value=""><%= l(:at_select_role)%></option>');
   $.each(data,function(i){
@@ -76,7 +76,7 @@ function remove_role() {
 function set_groups_for_resources(obj){
   if ( $("select#resugroup_id option").filter(":selected").val() == 'null' ) {
   } else {
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/set_groups_availability", { resource_id : $("#edit_resource_name").attr("res_id"), iresugroups: $(obj).val() }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/set_groups_availability", { resource_id : $("#edit_resource_name").attr("res_id"), iresugroups: $(obj).val() }, function( data ) {
     }, "json");
   }
 }
@@ -139,7 +139,7 @@ function validate_entity(name, ipv4, desc) {
 function add_entity() {
   var result = validate_entity($('#add_entity_name').val(), $('#add_entity_ipv4').val(), $('#add_entity_desc').val());
   if ( result == true ) {
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/add_entity", { res_id : $("#edit_resource_name").attr("res_id"), name : $("#add_entity_name").val(), ipv4: $("#add_entity_ipv4").val(), description: $("#add_entity_desc").val() }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/add_entity", { res_id : $("#edit_resource_name").attr("res_id"), name : $("#add_entity_name").val(), ipv4: $("#add_entity_ipv4").val(), description: $("#add_entity_desc").val() }, function( data ) {
       if (data.status == 1) {
         $("#add_entity_name").val('');
         $("#add_entity_ipv4").val('');
@@ -161,7 +161,7 @@ function save_entity(obj) {
   var desc = $(obj).parents("tr").find("#edit_entity_desc").val();
   var result = validate_entity(name,ipv4,desc);
   if ( result == true ) {
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/save_entity", { res_id : $("#edit_resource_name").attr("res_id"), name : name, ipv4: ipv4, description: desc, ie_id: $(obj).attr("id") }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/save_entity", { res_id : $("#edit_resource_name").attr("res_id"), name : name, ipv4: ipv4, description: desc, ie_id: $(obj).attr("id") }, function( data ) {
       if (data.status == 1) {
         update_entities_table(data);
         $('#entity_list').DataTable().columns(0).search('').draw();
@@ -183,7 +183,7 @@ function confirm_remove_entity(obj) {
 
 
 function remove_entity(ie_id) {
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/remove_entity", { res_id : $("#edit_resource_name").attr("res_id"), ie_id: ie_id }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/remove_entity", { res_id : $("#edit_resource_name").attr("res_id"), ie_id: ie_id }, function( data ) {
       if (data.status == 1) {
         update_entities_table(data);
         $('#entity_list').DataTable().draw();
@@ -215,7 +215,7 @@ function edit_entity(obj) {
 
 
 function set_granters(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/set_granters", { res_id: $("#edit_resource_name").attr("res_id"), iresgranters: $(obj).chosen().val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/set_granters", { res_id: $("#edit_resource_name").attr("res_id"), iresgranters: $(obj).chosen().val() }, function( data ) {
     if (data.status == 1) {
       $(obj).empty();
       $(obj).trigger("chosen:updated");
@@ -229,7 +229,7 @@ function set_granters(obj){
 }
 
 function set_owners(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/set_owners", { res_id: $("#edit_resource_name").attr("res_id"), iresowners: $(obj).chosen().val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/set_owners", { res_id: $("#edit_resource_name").attr("res_id"), iresowners: $(obj).chosen().val() }, function( data ) {
     if (data.status == 1) {
       $(obj).empty();
       $(obj).trigger("chosen:updated");
@@ -244,7 +244,7 @@ function set_owners(obj){
 
 
 function set_has_ip(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/set_has_ip", { res_id: $("#edit_resource_name").attr("res_id"), has_ip : $(obj).chosen().val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/set_has_ip", { res_id: $("#edit_resource_name").attr("res_id"), has_ip : $(obj).chosen().val() }, function( data ) {
     if (data.status == 1) {
       if (data.has_ip == 1) {
         $('#entity_list').DataTable().column(1).visible( true );
@@ -256,7 +256,7 @@ function set_has_ip(obj){
 }
 
 function set_has_entities(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/set_has_entities", { res_id: $("#edit_resource_name").attr("res_id"), has_entities : $(obj).chosen().val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/set_has_entities", { res_id: $("#edit_resource_name").attr("res_id"), has_entities : $(obj).chosen().val() }, function( data ) {
     if (data.status == 1) {
       update_entities_table(data);
       $('#entity_list').DataTable().draw();
@@ -337,7 +337,7 @@ $('#msgBox').dialog({
       var result_desc = validate_desc_len($("#description").val(), 256); 
       if ( result_name == true ) {
         if ( result_desc == true ) {
-          $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/save_resource", { resource_id: $("#edit_resource_name").attr("res_id"), name : $("#edit_resource_name").val(), description : $("#description").val() }, function( data ) {
+          $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/save_resource", { resource_id: $("#edit_resource_name").attr("res_id"), name : $("#edit_resource_name").val(), description : $("#description").val() }, function( data ) {
             if (data.status == 1) {
               update_resources_list(data);
             }
@@ -352,7 +352,7 @@ $('#msgBox').dialog({
     }
   }],
   close: function( event, ui ) {
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resources_list", { }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resources_list", { }, function( data ) {
 
       update_resources_list(data);
       if ( $('#confirmDialogBox').is(':visible') )
@@ -581,7 +581,7 @@ $('#entity_list_length label select').attr("style", "width:25% !important;min-wi
 
 
 $("#at_irole_add").click(function(e) {
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/add_role", { res_id: $("#edit_resource_name").attr("res_id"), name : $("#at_irole_name").val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/add_role", { res_id: $("#edit_resource_name").attr("res_id"), name : $("#at_irole_name").val() }, function( data ) {
   $('#role_id').empty();
   $('#role_id').append('<option value=""><%= l(:at_select_role)%></option>');
   $.each(data,function(i){
@@ -603,7 +603,7 @@ $("#at_irole_add").click(function(e) {
 });
 
 $("#at_irole_edit").click(function(e) {
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/edit_role", { role_id : $("select#role_id option").filter(":selected").val(), name : $("#at_irole_name").val(), description: $("#role_description").val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/edit_role", { role_id : $("select#role_id option").filter(":selected").val(), name : $("#at_irole_name").val(), description: $("#role_description").val() }, function( data ) {
     $('#role_id').empty();
     $('#role_id').append('<option value=""><%= l(:at_select_role)%></option>');
     $.each(data,function(i){

@@ -24,7 +24,7 @@ class IsettingsController < ApplicationController
     private_params = params.require(:irole).permit(:param, :value, :updated_at, :updated_by_id, :deleted)
     if User.current.admin?
       ISetting.active.update_all(:deleted =>  1)
-      redirect_to Redmine::Utils::relative_url_root + "/settings/plugin/access_tickets", :status => 302 #root_url
+      redirect_to Redmine::Utils::relative_url_root + "/settings/plugin/redmine_access_tickets", :status => 302 #root_url
     else
       render_error({:message => :notice_file_not_found, :status => 404})
     end
@@ -44,7 +44,7 @@ class IsettingsController < ApplicationController
       if inputData.count == ISetting.bs_values_map().count
         ISetting.set_basic_settings(inputData)
       end
-      redirect_to Redmine::Utils::relative_url_root + "/settings/plugin/access_tickets", :status => 302 #root_url
+      redirect_to Redmine::Utils::relative_url_root + "/settings/plugin/redmine_access_tickets", :status => 302 #root_url
     else
       render_error({:message => :notice_file_not_found, :status => 404})
     end

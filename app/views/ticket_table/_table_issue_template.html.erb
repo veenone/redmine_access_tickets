@@ -74,10 +74,10 @@
 
 </div>
 
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/access_tickets.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.dataTables.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.chosen.js"></script>
-<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/access_tickets/javascripts/jquery.validate.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/access_tickets.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.dataTables.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.chosen.js"></script>
+<script src="<%= Redmine::Utils::relative_url_root %>/plugin_assets/redmine_access_tickets/javascripts/jquery.validate.js"></script>
 
 <script type="text/javascript">
 var security_officer = <%= ITicket.check_security_officer(User.current) ? 1 : 0 %>;
@@ -237,31 +237,31 @@ $('#show_access').DataTable({
   $("#at_verify_template").click(function(e) { 
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/verify_template?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/verify_template?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
   $("#at_reject_verification_template").click(function(e) { 
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/reject_template?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/reject_template?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
 
   $("#at_approve_template").click(function(e) { 
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/approve_template?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/approve_template?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
 
   $("#at_refuse_approve_template").click(function(e) { 
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/revoke_template?issue_id=<%= @issue.id.to_s %>","_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/revoke_template?issue_id=<%= @issue.id.to_s %>","_self");
   });
 
 function show_resource(obj) { 
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
 }
 
 function update_datatable(data){
@@ -336,7 +336,7 @@ function show_roles(obj){
 }
 
 function show_ientities(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resource/ientity_show_list", { res_id: $(obj).val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource/ientity_show_list", { res_id: $(obj).val() }, function( data ) {
     //console.log(data.ientities.length);
     var row = $(obj).parent().parent();
     var uid = row.attr('uid');
@@ -387,16 +387,16 @@ function set_issue_template(obj){
     $('#ajax-indicator').show();
     var group_id = $("select#group_list").val();
     var template_id = $("select#template_list").val();
-    window.open("<%=j Redmine::Utils::relative_url_root %>/access_tickets/set_issue_template?issue_id=<%= @issue.id.to_s %>&group_id="+ group_id +"&template_id=" + template_id, "_self");
+    window.open("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/set_issue_template?issue_id=<%= @issue.id.to_s %>&group_id="+ group_id +"&template_id=" + template_id, "_self");
   }
 }
 
   function show_resource(obj) { 
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource", { resource_id: $(obj).attr('id') },"json");  
   }
 
 function show_group_templates(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_group_templates", { group_id: $(obj).val(), issue_id: <%= @issue.id.to_s %> }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_group_templates", { group_id: $(obj).val(), issue_id: <%= @issue.id.to_s %> }, function( data ) {
     //console.log(data);
     $('#show_access').DataTable().clear().draw();
     $('#template_list').empty();

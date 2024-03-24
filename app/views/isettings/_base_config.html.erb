@@ -379,7 +379,7 @@ $("#set_base_config").click(function(e) {
     
     $(this).prop( "disabled", true );
     $('#ajax-indicator').show();
-    window.open("<%= Redmine::Utils::relative_url_root %>/access_tickets/set_base_config?parameters=" + JSON.stringify(sendData),"_self");
+    window.open("<%= Redmine::Utils::relative_url_root %>/redmine_access_tickets/set_base_config?parameters=" + JSON.stringify(sendData),"_self");
   }
 
 });

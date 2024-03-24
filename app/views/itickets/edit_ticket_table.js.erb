@@ -25,7 +25,7 @@ function check_simple_approvement(obj) {
 
 
 function show_group_templates(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_group_templates", { issue_id: <%=j @issue_id %>, group_id: $(obj).val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_group_templates", { issue_id: <%=j @issue_id %>, group_id: $(obj).val() }, function( data ) {
     $('#edit_ticket').DataTable().clear().draw();
     $('#template_list').empty();
     $('#template_list').append('<option value=""><%= l(:at_select_template)%></option>');
@@ -91,7 +91,7 @@ function add_row(){
 }
 
 function show_template_table(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_template", { group_id: $("select#group_id").val(), template_id: $("select#template_list").val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_template", { group_id: $("select#group_id").val(), template_id: $("select#template_list").val() }, function( data ) {
     $('#edit_ticket').DataTable().clear().draw();
       update_edittable(data);
   }, "json");
@@ -260,7 +260,7 @@ function update_edittable(data){
 
 function set_t_version(obj){
   var version = $(obj).val();
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_ticket_table/show_version", { issue_id: <%=j @issue_id %>, version: version }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_ticket_table/show_version", { issue_id: <%=j @issue_id %>, version: version }, function( data ) {
     $('#edit_ticket').DataTable().clear().draw();
     $('#at_versions option:selected').removeAttr("selected");
     var ticket_data = data[0];
@@ -361,7 +361,7 @@ $('#exist_accesses_box').parent().find('.ui-dialog-titlebar').find('#label_sa').
 
 function save_tickets(obj){
   if ($('#sa_checker').is(":checked")) {
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_ticket_table/save", { issue_id: <%=j @issue_id %>, group_id: $("select#group_id").val(), template_id: $("select#template_list").val(),i_tickets: JSON.stringify(obj), version: $('#at_versions').val() }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_ticket_table/save", { issue_id: <%=j @issue_id %>, group_id: $("select#group_id").val(), template_id: $("select#template_list").val(),i_tickets: JSON.stringify(obj), version: $('#at_versions').val() }, function( data ) {
       if (data[3].length > 0) {
         $( "#msgBox" ).dialog('destroy').remove();
         show_exist_accesses_box(data[3]);
@@ -373,7 +373,7 @@ function save_tickets(obj){
     }, "json");
   } else {
     <% if @tracker_id == ISetting.active.where(:param => "tr_new_emp_id").first.value.to_i %>
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_ticket_table/save", { issue_id: <%=j @issue_id %>, group_id: $("select#group_id").val(), template_id: $("select#template_list").val(),i_tickets: JSON.stringify(obj), version: $('#at_versions').val() }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_ticket_table/save", { issue_id: <%=j @issue_id %>, group_id: $("select#group_id").val(), template_id: $("select#template_list").val(),i_tickets: JSON.stringify(obj), version: $('#at_versions').val() }, function( data ) {
       if (data[3].length > 0) {
         $( "#msgBox" ).dialog('destroy').remove();
         show_exist_accesses_box(data[3]);
@@ -384,7 +384,7 @@ function save_tickets(obj){
       }
     }, "json");
     <% else %>
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_ticket_table/save", { issue_id: <%=j @issue_id %>, i_tickets: JSON.stringify(obj), version: $('#at_versions').val() }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_ticket_table/save", { issue_id: <%=j @issue_id %>, i_tickets: JSON.stringify(obj), version: $('#at_versions').val() }, function( data ) {
       if (data[3].length > 0) {
         show_exist_accesses_box(data[3]);
       } else {
@@ -428,7 +428,7 @@ function show_roles(obj){
 }
 
 function show_ientities(obj){
-  $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resource/ientity_show_list", { res_id: $(obj).val() }, function( data ) {
+  $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource/ientity_show_list", { res_id: $(obj).val() }, function( data ) {
     var row = $(obj).parent().parent();
     var uid = row.attr('uid');
     

@@ -95,7 +95,7 @@ class IresourcesController < ApplicationController
 	end
 
 	def edit_resource
-		private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
+		# private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
 		if params[:resource_id].present? && ( ITicket.check_security_officer(User.current) || IResgranter.is_granter_for_resource(User.current.id,params[:resource_id]) || IResowner.is_owner_for_resource(User.current.id,params[:resource_id]) )
 			@entities_editable = true
 			if ITicket.check_security_officer(User.current)
@@ -139,7 +139,7 @@ class IresourcesController < ApplicationController
 
 
   def set_has_ip
-	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
+	# private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
     if ( ITicket.check_security_officer(User.current) && params[:has_ip].present? && params[:res_id].present? )
       iresource = IResource.active.where(:id => params[:res_id]).first
       iresource[:has_ip] = params[:has_ip]
@@ -158,7 +158,7 @@ class IresourcesController < ApplicationController
   end
 
   def set_has_entities
-	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
+	# private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
     if ( ITicket.check_security_officer(User.current) && params[:has_entities].present? && params[:res_id].present? )
       iresource = IResource.active.where(:id => params[:res_id]).first
       iresource[:has_entities] = params[:has_entities]
@@ -279,7 +279,7 @@ class IresourcesController < ApplicationController
 
   #def ir_add
   def add_resource
-	private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
+	# private_params = params.require(:i_resource).permit(:name, :has_ip, :has_entities, :deleted, :description, :updated_by_id)
 		if ITicket.check_security_officer(User.current)
 	    iresource = IResource.new(:name => params[:name] )
 	    iresource[:updated_by_id] = User.current.id

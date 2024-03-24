@@ -137,7 +137,7 @@ $('#msgBox').dialog({
             sendData.push(access);
           }
         });
-        $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_revoking_table/save", { issue_id: <%=j @issue_id %>, r_user_id: <%=j @r_user_id %>, i_tickets: JSON.stringify(sendData) }, function( data ) {
+        $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_revoking_table/save", { issue_id: <%=j @issue_id %>, r_user_id: <%=j @r_user_id %>, i_tickets: JSON.stringify(sendData) }, function( data ) {
           $( "#ajax-modal" ).before($('#ajax-indicator').clone());
           location.reload();
         }, "json");

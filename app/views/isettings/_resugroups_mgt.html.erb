@@ -25,7 +25,7 @@
 
 
   function show_resugroups(obj){
-    $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/show_resource/groups_availability", { resource_id: $(obj).val() }, function( data ) {
+    $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/show_resource/groups_availability", { resource_id: $(obj).val() }, function( data ) {
       //console.log(data);
       $('#resugroup_id').empty();
       $('#resugroup_id').append('<option value=""><%= l(:at_select_group)%></option>');
@@ -42,7 +42,7 @@
   function set_groups_for_resources(obj){
     if ( $("select#resugroup_id option").filter(":selected").val() == 'null' ) {
     } else {
-      $.post("<%=j Redmine::Utils::relative_url_root %>/access_tickets/edit_resource/set_groups_availability", { resource_id : $("select#resourse_id option").filter(":selected").val(),
+      $.post("<%=j Redmine::Utils::relative_url_root %>/redmine_access_tickets/edit_resource/set_groups_availability", { resource_id : $("select#resourse_id option").filter(":selected").val(),
       iresugroups: $(obj).val() }, function( data ) {
         //console.log(data);
       }, "json");

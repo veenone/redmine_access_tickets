@@ -50,9 +50,9 @@ class ISetting < ActiveRecord::Base
   end
 
   def self.plugin_settings_ermi
-    if Setting[:plugin_access_tickets].length != 0
+    if Setting[:plugin_redmine_access_tickets].length != 0
 
-      plugin_at_settings = Setting.plugin_access_tickets
+      plugin_at_settings = Setting.plugin_redmine_access_tickets
 
       if plugin_at_settings.length != 0
         at_erm_integration = plugin_at_settings[:at_erm_integration].to_i
